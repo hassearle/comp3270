@@ -20,6 +20,7 @@ public class Algo {
       
       //fix
       int[] arr = new int[10];
+      int count = 0;
       
       BufferedReader br = new BufferedReader(new FileReader("phw_input.txt"));
       String line = null;
@@ -28,6 +29,8 @@ public class Algo {
          String[] values = line.split(",");
          for (String str : values) {
             System.out.println(str);
+            arr[count] = Integer.parseInt(str);
+            count++;
          }
       }
       br.close();
