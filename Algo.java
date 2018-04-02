@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Algo {
 
@@ -35,11 +36,14 @@ public class Algo {
       }
       br.close();
       
-      algo1(arr);
-      //int algo1 = algo1(arr);
-      int algo2 = algo2(arr);
-      int algo3 = maxSum(arr, 2, 4);
-      int algo4 = algo4(arr);
+      //algo1(arr);
+      Algo a = new Algo();
+      //Arraylist<int> 
+      
+      int algo1 = a.algo1(arr);
+      int algo2 = a.algo2(arr);
+      int algo3 = a.maxSum(arr, 0, 9);
+      int algo4 = a.algo4(arr);
    
       System.out.println("algorithm-1: " + algo1);
       System.out.println("algorithm-2: " + algo2);
@@ -50,17 +54,17 @@ public class Algo {
       
    }
    
-   public static int max(int x, int y){
+   public int max(int x, int y){
       if(x > y){ 
          return x;
       }
       return y;
    }
-   public static int max(int x, int y, int z){
-      if(x > y || x > z){
+   public int max(int x, int y, int z){
+      if(x >= y || x >= z){
          return x;
       }
-      else if (y > z || y > x){
+      else if (y >= z || y >= x){
          return y;
       }
       return z; 
@@ -68,12 +72,12 @@ public class Algo {
    
    public int algo1(int[] X){
       int P = 0;
-      int Q = X.length-1;
+      int Q = X.length;
       int maxSoFar = 0;
       for(int L=P; L<Q; L++){
          for(int U=L; U<Q; U++){
             int sum = 0; 
-            for(int I=L; I<U; I++){
+            for(int I=L; I<=U; I++){
                sum = sum + X[I];
             //sum now contains the sum of X[L..U]
             }
@@ -83,10 +87,10 @@ public class Algo {
       return maxSoFar;
    }
 
-   public static int algo2(int[] X){
+   public int algo2(int[] X){
       int maxSoFar = 0; 
       int P = 0;
-      int Q = X.length-1;
+      int Q = X.length;//-1;
       for(int L=P; L<Q; L++){
          int sum = 0;
          for(int U=L; U<Q; U++){
@@ -99,7 +103,7 @@ public class Algo {
    }
    
    //algo3
-   public static int maxSum(int[] X, int L, int U){
+   public int maxSum(int[] X, int L, int U){
       //int L = X[0];
       //int U = X[X.length];
       if(L > U){
@@ -112,14 +116,14 @@ public class Algo {
       //Find max crossing to left
       int sum = 0; 
       int maxToLeft = 0;
-      for(int I=M; I>L; I--){
+      for(int I=M; I>=L; I--){
          sum = sum + X[I];
          maxToLeft = max(maxToLeft, sum);
       }
       //Find max crossing to right
       sum = 0; 
       int maxToRight = 0;
-      for(int I = M+1; I<U; I++){
+      for(int I = M+1; I<=U; I++){
          sum = sum + X[I];
          maxToRight = max(maxToRight, sum);
       }
@@ -130,15 +134,21 @@ public class Algo {
       return max(maxCrossing, maxInA, maxInB);
    }
    
-   public static int algo4(int[] X){
+   public int algo4(int[] X){
       int maxSoFar = 0;
       int maxEndingHere = 0;
       int P = 0;
-      int Q = X.length-1;
+      int Q = X.length;//-1;
       for(int I=P; I<Q; I++){
          maxEndingHere = max(0, maxEndingHere + X[I]);
          maxSoFar = max(maxSoFar, maxEndingHere);
       }
       return maxSoFar;
+   }
+   
+   public void mkLists(){
+   }
+   
+   public void mkRandNum(){
    }
 }
