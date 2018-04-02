@@ -1,16 +1,53 @@
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class Algo {
 
-   public static void main(String[] args) {
-      int[] arr = {0,1,2,3,4,5,6,7,8,9};
+   public static void main(String[] args) throws Exception {
+      /*
+      First, the mainprogram should read from a 
+      file named “phw_input.txt”containing 10 
+      comma-delimited integersin the first line,
+      create an arraycontaining these 10 integers, 
+      andrun each of the algorithms on that input 
+      array, and print out the answer produced by 
+      eachon the consoleas follows:"algorithm-1: 
+      <answer>; algorithm-2:<answer>;algorithm-3:
+      <answer>; algorithm-4:<answer> where <answer> 
+      is the MSCS as determined by eachof the 
+      algorithms.
+      */
       
+      //fix
+      int[] arr = new int[10];
+      
+      BufferedReader br = new BufferedReader(new FileReader("phw_input.txt"));
+      String line = null;
+   
+      while ((line = br.readLine()) != null) {
+         String[] values = line.split(",");
+         for (String str : values) {
+            System.out.println(str);
+         }
+      }
+      br.close();
+      
+      
+      int algo1 = algo1(arr);
+      int algo2 = algo2(arr);
+      int algo3 = maxSum(arr, 0, 0);
+      int algo4 = algo4(arr);
       // for(int i=0; i < arr.length ; i++){
    //       System.out.println(arr[i]);
    //    };
    
-      System.out.println(algo1(arr));
-      System.out.println("Hello, World");
+      System.out.println("algorithm-1: " + algo1);
+      System.out.println("algorithm-2: " + algo2);
+      System.out.println("algorithm-3: " + algo3);
+      System.out.println("algorithm-4: " + algo4 
+         + " where " + algo4 + "is the MSCS as " +
+         "determined by each of the algorithms.");
+      
    }
    
    public static int algo1(int[] X){
