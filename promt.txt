@@ -1,0 +1,48 @@
+Algorithm-1(X : array[P..Q] of integer)
+   maxSoFar = 0
+   forL = Pto Q
+      forU = L to Q
+         sum =0
+            forI = L to U 
+               sum = sum + X[I]
+               /* sum now contains the sum of X[L..U]*/
+            maxSoFar = max (maxSoFar, sum)
+   return maxSoFar
+   
+Algorithm-2(X : array[P..Q] of integer)
+1  maxSoFar = 0
+2  forL = P to Q
+3     sum =0
+4     forU = L to Q
+5        sum = sum + X[U]
+         /* sum now contains the sum of X[L..U]*/
+6        maxSoFar = max(maxSoFar,sum)
+7  return maxSoFar
+
+Algorithm-3recursive function MaxSum(X[L..U]: arrayof integer, L, U: integer)
+1  if L > U then 
+      return 0   /* zero-element vector */
+2  if L=U then 
+      return max(0,X[L]) /* one-element vector */
+3  M = (L+U)/2  /* A is X[L..M], B is X[M+1..U] */
+   /* Find max crossing to left */
+4  sum = 0; maxToLeft =0
+5  forI = M downto L do
+6  sum =sum+X[I]
+7  maxToLeft = max(maxToLeft,sum)/* Find max crossing to right */
+8  sum=0; maxToRight=0
+9  forI = M+1 to U
+10 sum=sum+X[I]
+11 maxToRight = max(maxToRight, sum)
+12 maxCrossing = maxToLeft + maxToRight
+13 maxInA = maxSum(X, L, M)
+14 maxInB = maxSum(X,M+1,U)
+15 return max(maxCrossing, maxInA, maxInB)
+
+Algorithm-4(X : array[P..Q] of integer)
+1  maxSoFar = 0
+2  maxEndingHere= 0
+3  forI = P to Q 
+4     maxEndingHere = max(0,maxEndingHere + X[I])
+5     maxSoFar = max(maxSoFar, maxEndingHere)
+6  return maxSoFar
