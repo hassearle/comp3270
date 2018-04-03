@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Algo {
 
@@ -29,21 +30,17 @@ public class Algo {
       while ((line = br.readLine()) != null) {
          String[] values = line.split(",");
          for (String str : values) {
-            System.out.println(str);
+            //System.out.println(str);
             arr[count] = Integer.parseInt(str);
             count++;
          }
       }
       br.close();
       
-      //algo1(arr);
       Algo a = new Algo();
       ArrayList<ArrayList> arrList = new ArrayList<ArrayList>();
-      
-      for(int i = 1; i < 20; i++){
-         arrList.add(new ArrayList<Integer>(5*i+5));
-      }
-      
+      ArrayList<ArrayList> timeMatrix = new ArrayList<ArrayList>();
+       
       int algo1 = a.algo1(arr);
       int algo2 = a.algo2(arr);
       int algo3 = a.maxSum(arr, 0, 9);
@@ -56,6 +53,15 @@ public class Algo {
          + " where " + algo4 + " is the MSCS as " +
          "determined by each of the algorithms.");
       
+      for(int i = 1; i < 20; i++){
+         arrList.add(new ArrayList<Integer>(5*i+5)); //creates empty ArrayList for random nums
+         a.fillList(arrList.get(i-1),5*i+5);         //fills list with random num's
+         
+         timeMatrix.add(new ArrayList<Integer>(5*i+5));//creates empty ArrList for timeMatrix
+         if(i < 5){ //fills out first 4 col with avg exe times
+            timeMatrix.get(0).add(i-1, 0);//insert avg exe time
+         }
+      }
    }
    
    public int max(int x, int y){
@@ -150,9 +156,10 @@ public class Algo {
       return maxSoFar;
    }
    
-   public void mkLists(){
-   }
-   
-   public void mkRandNum(){
+   public void fillList(ArrayList aryList, int listSize){
+      Random rand = new Random();
+      for(int i=0; i < listSize; i++){
+         aryList.add(i, rand.nextInt());
+      }
    }
 }
