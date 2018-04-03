@@ -38,7 +38,11 @@ public class Algo {
       
       //algo1(arr);
       Algo a = new Algo();
-      //Arraylist<int> 
+      ArrayList<ArrayList> arrList = new ArrayList<ArrayList>();
+      
+      for(int i = 1; i < 20; i++){
+         arrList.add(new ArrayList<Integer>(5*i+5));
+      }
       
       int algo1 = a.algo1(arr);
       int algo2 = a.algo2(arr);
