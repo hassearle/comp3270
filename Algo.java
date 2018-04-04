@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Algo {
 
@@ -70,32 +71,41 @@ public class Algo {
             t3=0,
             t4=0;
       
-      for(int i=0; i<100; i++){
+      int N = 100;
+      for(int i=0; i<N; i++){
          for(int j=0; j<18; j++){    
             start = System.nanoTime();//currentTimeMillis();
             a.algo1(arrList.get(j));
             end = System.nanoTime();//currentTimeMillis();
-            t1 = end - start;
+            t1 += (end - start);
             
             start = System.nanoTime();
             a.algo2(arrList.get(j));
             end = System.nanoTime();
-            t2 = end - start;
+            t2 += end - start;
          
             start = System.nanoTime();
             a.maxSum(arrList.get(j), 0, arrList.get(j).size()-1);
             end = System.nanoTime();
-            t3 = end - start;
+            t3 += end - start;
             
             start = System.nanoTime();
             a.algo4(arrList.get(j));
             end = System.nanoTime();
-            t4 = end - start;
+            t4 += end - start;
          }
       }
       
+      t1 /= 100000;//= TimeUnit.NANOSECONDS.toMillis(t1);
+      t1 /= N; 
+      t2 /= 100000;//= TimeUnit.NANOSECONDS.toMillis(t2);
+      t2 /= N; 
+      t3 /= 100000;//= TimeUnit.NANOSECONDS.toMillis(t3);
+      t3 /= N; 
+      t4 /= 100000;//= TimeUnit.NANOSECONDS.toMillis(t4);
+      t4 /= N;
+      
       System.out.println(t1 + "\n" + t2 + "\n" + t3 + "\n" + t4);
-      System.out.println();
    }
    
    public int max(int x, int y){
