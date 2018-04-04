@@ -92,6 +92,8 @@ public class Algo {
             end = System.currentTimeMillis();
             t4 = end - start;
          }
+         System.out.println(t1 + "/n" + t2 + "/n" + t3 + "/n" + t4);
+            System.out.println();
       }
    }
    
