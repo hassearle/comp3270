@@ -63,18 +63,36 @@ public class Algo {
          }
       }
       
-      long start = 0, end;
+      long  start, 
+            end;
+      long   t1,
+            t2,
+            t3,
+            t4;
+      
       for(int i=0; i<100; i++){
-         start = System.currentTimeMillis();
-         for(int j=0; j<19; j++){               
+         for(int j=0; j<19; j++){    
+            start = System.currentTimeMillis();
             a.algo1(arrList.get(j));
+            end = System.currentTimeMillis();
+            t1 = end - start;
+            
+            start = System.currentTimeMillis();
             a.algo2(arrList.get(j));
+            end = System.currentTimeMillis();
+            t2 = end - start;
+         
+            start = System.currentTimeMillis();
             a.maxSum(arrList.get(j), 0, arrList.get(j).size());
+            end = System.currentTimeMillis();
+            t3 = end - start;
+            
+            start = System.currentTimeMillis();
             a.algo4(arrList.get(j));
+            end = System.currentTimeMillis();
+            t4 = end - start;
          }
-         end = System.currentTimeMillis();
       }
-      System.out.println(start);
    }
    
    public int max(int x, int y){
