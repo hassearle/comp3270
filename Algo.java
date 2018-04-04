@@ -65,36 +65,37 @@ public class Algo {
       
       long  start, 
             end;
-      long   t1,
-            t2,
-            t3,
-            t4;
+      long  t1=0,
+            t2=0,
+            t3=0,
+            t4=0;
       
       for(int i=0; i<100; i++){
-         for(int j=0; j<19; j++){    
-            start = System.currentTimeMillis();
+         for(int j=0; j<18; j++){    
+            start = System.nanoTime();//currentTimeMillis();
             a.algo1(arrList.get(j));
-            end = System.currentTimeMillis();
+            end = System.nanoTime();//currentTimeMillis();
             t1 = end - start;
             
-            start = System.currentTimeMillis();
+            start = System.nanoTime();
             a.algo2(arrList.get(j));
-            end = System.currentTimeMillis();
+            end = System.nanoTime();
             t2 = end - start;
          
-            start = System.currentTimeMillis();
-            a.maxSum(arrList.get(j), 0, arrList.get(j).size());
-            end = System.currentTimeMillis();
+            start = System.nanoTime();
+            a.maxSum(arrList.get(j), 0, arrList.get(j).size()-1);
+            end = System.nanoTime();
             t3 = end - start;
             
-            start = System.currentTimeMillis();
+            start = System.nanoTime();
             a.algo4(arrList.get(j));
-            end = System.currentTimeMillis();
+            end = System.nanoTime();
             t4 = end - start;
          }
-         System.out.println(t1 + "/n" + t2 + "/n" + t3 + "/n" + t4);
-            System.out.println();
       }
+      
+      System.out.println(t1 + "\n" + t2 + "\n" + t3 + "\n" + t4);
+      System.out.println();
    }
    
    public int max(int x, int y){
