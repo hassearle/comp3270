@@ -8,24 +8,35 @@ import java.util.concurrent.TimeUnit;
 public class Algo {
 
    public static void main(String[] args) throws Exception {
-      /*
-      First, the mainprogram should read from a 
-      file named “phw_input.txt”containing 10 
-      comma-delimited integersin the first line,
-      create an arraycontaining these 10 integers, 
-      andrun each of the algorithms on that input 
-      array, and print out the answer produced by 
-      eachon the consoleas follows:"algorithm-1: 
-      <answer>; algorithm-2:<answer>;algorithm-3:
-      <answer>; algorithm-4:<answer> where <answer> 
-      is the MSCS as determined by eachof the 
-      algorithms.
-      */
+         
+      Algo a = new Algo();
       
       ArrayList<Integer> arr = new ArrayList<Integer>();
+      ArrayList<ArrayList<Integer>> arrList = new ArrayList<ArrayList<Integer>>();
+      ArrayList<ArrayList<Long>> timeMatrix = new ArrayList<ArrayList<Long>>();
+      String file = "phw_input.txt";
+       
+      arr = a.scanFile(file, arr);  //scans ints in file to array
+      
+      a.printMaxSum(arr); //runs ints in file with algo's, prints to console
+      
+      for(int i = 1; i < 20; i++){
+         arrList.add(new ArrayList<Integer>(5*i+5)); //creates empty ArrayList for random nums
+         a.fillList(arrList.get(i-1),5*i+5);         //fills list with random num's
+         
+         timeMatrix.add(new ArrayList<Long>(5*i+5));//creates empty ArrList for timeMatrix
+         if(i < 5){ //fills out first 4 col with avg exe times
+            //timeMatrix.get(0).add(i-1, 0);//insert avg exe time
+         }
+      }
+      
+      a.timeAlgo(arrList, timeMatrix); //runs arrList against algos 100 times, takes the avg
+   }
+   
+   public ArrayList scanFile(String fileName, ArrayList<Integer> arr) throws Exception{
       int count = 0;
       
-      BufferedReader br = new BufferedReader(new FileReader("phw_input.txt"));
+      BufferedReader br = new BufferedReader(new FileReader(fileName));
       String line = null;
    
       while ((line = br.readLine()) != null) {
@@ -38,72 +49,74 @@ public class Algo {
       }
       br.close();
       
-      Algo a = new Algo();
-      ArrayList<ArrayList<Integer>> arrList = new ArrayList<ArrayList<Integer>>();
-      ArrayList<ArrayList<Integer>> timeMatrix = new ArrayList<ArrayList<Integer>>();
-       
-      int algo1 = a.algo1(arr);
-      int algo2 = a.algo2(arr);
-      int algo3 = a.maxSum(arr, 0, 9);
-      int algo4 = a.algo4(arr);
+      return arr;
+   }
    
+   public void printMaxSum(ArrayList<Integer> ary){
+      int algo1 = algo1(ary);
+      int algo2 = algo2(ary);
+      int algo3 = maxSum(ary, 0, 9);
+      int algo4 = algo4(ary);
+      
       System.out.println("algorithm-1: " + algo1);
       System.out.println("algorithm-2: " + algo2);
       System.out.println("algorithm-3: " + algo3);
       System.out.println("algorithm-4: " + algo4 
          + " where " + algo4 + " is the MSCS as " +
          "determined by each of the algorithms.");
-      
-      for(int i = 1; i < 20; i++){
-         arrList.add(new ArrayList<Integer>(5*i+5)); //creates empty ArrayList for random nums
-         a.fillList(arrList.get(i-1),5*i+5);         //fills list with random num's
-         
-         timeMatrix.add(new ArrayList<Integer>(5*i+5));//creates empty ArrList for timeMatrix
-         if(i < 5){ //fills out first 4 col with avg exe times
-            timeMatrix.get(0).add(i-1, 0);//insert avg exe time
-         }
-      }
-      
+   }
+   
+   public void timeAlgo(ArrayList<ArrayList<Integer>> aryList, 
+                           ArrayList<ArrayList<Long>> timeMtrx){
       long  start, 
             end;
       long  t1=0,
             t2=0,
             t3=0,
             t4=0;
+      int   N = 100;
       
-      int N = 100;
       for(int i=0; i<N; i++){
          for(int j=0; j<18; j++){    
             start = System.nanoTime();//currentTimeMillis();
-            a.algo1(arrList.get(j));
+            algo1(aryList.get(j));
             end = System.nanoTime();//currentTimeMillis();
             t1 += (end - start);
             
             start = System.nanoTime();
-            a.algo2(arrList.get(j));
+            algo2(aryList.get(j));
             end = System.nanoTime();
             t2 += end - start;
          
             start = System.nanoTime();
-            a.maxSum(arrList.get(j), 0, arrList.get(j).size()-1);
+            maxSum(aryList.get(j), 0, aryList.get(j).size()-1);
             end = System.nanoTime();
             t3 += end - start;
             
             start = System.nanoTime();
-            a.algo4(arrList.get(j));
+            algo4(aryList.get(j));
             end = System.nanoTime();
             t4 += end - start;
          }
       }
       
+      //converts nano to micro
+      //takes the avg of the running times
       t1 /= 100000;//= TimeUnit.NANOSECONDS.toMillis(t1);
-      t1 /= N; 
+      t1 /= N;
+      timeMtrx.get(0).add(0, t1);//insert avg exe time 
+      
       t2 /= 100000;//= TimeUnit.NANOSECONDS.toMillis(t2);
       t2 /= N; 
+      timeMtrx.get(0).add(1, t2);//insert avg exe time
+      
       t3 /= 100000;//= TimeUnit.NANOSECONDS.toMillis(t3);
       t3 /= N; 
+      timeMtrx.get(0).add(2, t3);//insert avg exe time
+      
       t4 /= 100000;//= TimeUnit.NANOSECONDS.toMillis(t4);
       t4 /= N;
+      timeMtrx.get(0).add(3, t4);//insert avg exe time
       
       System.out.println(t1 + "\n" + t2 + "\n" + t3 + "\n" + t4);
    }
